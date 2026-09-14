@@ -1,0 +1,215 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #18212b;
+  background: #f7f9fc;
+  line-height: 1.6;
+}
+
+.wrap {
+  width: min(1100px, 92%);
+  margin: auto;
+}
+
+.site-header {
+  background: #ffffff;
+  border-bottom: 1px solid #e5e9ef;
+}
+
+.nav {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  font-size: 24px;
+  font-weight: 800;
+  color: #1769e0;
+  text-decoration: none;
+}
+
+.nav nav {
+  display: flex;
+  gap: 22px;
+}
+
+.nav nav a {
+  color: #45515f;
+  text-decoration: none;
+}
+
+.hero {
+  background: #ffffff;
+  padding: 75px 0 85px;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1769e0;
+  letter-spacing: 1.5px;
+}
+
+.hero h1 {
+  font-size: clamp(36px, 6vw, 62px);
+  line-height: 1.05;
+  max-width: 850px;
+  margin: 14px auto;
+}
+
+.hero p {
+  font-size: 20px;
+  color: #657181;
+  max-width: 650px;
+  margin: 20px auto 30px;
+}
+
+.button {
+  display: inline-block;
+  background: #1769e0;
+  color: white;
+  padding: 13px 22px;
+  border-radius: 9px;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.section {
+  padding: 55px 0;
+}
+
+.section h2 {
+  font-size: 32px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(220px, 1fr)
+  );
+  gap: 18px;
+}
+
+.card {
+  display: block;
+  background: white;
+  padding: 23px;
+  border: 1px solid #e5e9ef;
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: 0.15s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px #00000010;
+}
+
+.card h3 {
+  margin: 0 0 8px;
+  color: #1769e0;
+}
+
+.card p {
+  margin: 0;
+  color: #697586;
+}
+
+.about {
+  max-width: 800px;
+}
+
+.calculator-page {
+  padding: 45px 0 80px;
+}
+
+.calc-shell {
+  max-width: 760px;
+  margin: auto;
+  background: white;
+  border: 1px solid #e1e6ed;
+  border-radius: 14px;
+  padding: 28px;
+}
+
+.calc-shell h1 {
+  margin-top: 0;
+  line-height: 1.15;
+}
+
+.intro {
+  color: #657181;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.field label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccd4df;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.calc-button {
+  border: 0;
+  background: #1769e0;
+  color: white;
+  padding: 13px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 18px;
+}
+
+.result {
+  margin-top: 22px;
+  padding: 20px;
+  background: #eef6ff;
+  border-radius: 10px;
+  border: 1px solid #cfe4ff;
+}
+
+.result strong {
+  font-size: 25px;
+}
+
+.notes {
+  margin-top: 28px;
+  color: #596675;
+  font-size: 14px;
+}
+
+footer {
+  padding: 30px 0;
+  background: #18212b;
+  color: #cbd3dc;
+  font-size: 14px;
+}
+
+@media (max-width: 650px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
