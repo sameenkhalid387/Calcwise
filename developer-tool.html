@@ -6,7 +6,7 @@
 
 <title>Developer Tools — CalcWise</title>
 
-<meta name="description" content="Free online developer tools including JSON Formatter, JSON to CSV, CSV to JSON and Base64 Encoder and Decoder.">
+<meta name="description" content="Free online developer tools including JSON Formatter, JSON to CSV, CSV to JSON, Base64 Encoder and URL Encoder.">
 
 <link rel="stylesheet" href="./style.css?v=3">
 
@@ -260,6 +260,10 @@ footer {
             Base64
         </a>
 
+        <a href="?tool=url" id="menu-url">
+            URL Encoder
+        </a>
+
     </div>
 
 
@@ -435,6 +439,47 @@ Sarah,25,London"></textarea>
 
     </section>
 
+
+    <!-- URL ENCODER -->
+
+    <section class="tool-card" id="urlTool" style="display:none;">
+
+        <h2>URL Encoder & Decoder</h2>
+
+        <p>
+            Encode URLs or text for safe use in web addresses, or decode
+            encoded URLs back into readable text.
+        </p>
+
+        <textarea id="urlInput"
+        placeholder="Enter URL or text here...
+Example:
+https://example.com/search?q=hello world"></textarea>
+
+        <div class="buttons">
+
+            <button onclick="encodeURL()">
+                Encode URL
+            </button>
+
+            <button onclick="decodeURL()">
+                Decode URL
+            </button>
+
+            <button class="secondary" onclick="copyURL()">
+                Copy
+            </button>
+
+            <button class="danger" onclick="clearURL()">
+                Clear
+            </button>
+
+        </div>
+
+        <div id="urlStatus" class="status"></div>
+
+    </section>
+
 </main>
 
 
@@ -456,23 +501,25 @@ const jsonTool = document.getElementById("jsonTool");
 const jsonCsvTool = document.getElementById("jsonCsvTool");
 const csvJsonTool = document.getElementById("csvJsonTool");
 const base64Tool = document.getElementById("base64Tool");
+const urlTool = document.getElementById("urlTool");
 
 const menuJson = document.getElementById("menu-json");
 const menuJsonCsv = document.getElementById("menu-json-csv");
 const menuCsvJson = document.getElementById("menu-csv-json");
 const menuBase64 = document.getElementById("menu-base64");
-
+const menuUrl = document.getElementById("menu-url");
 
 jsonTool.style.display = "none";
 jsonCsvTool.style.display = "none";
 csvJsonTool.style.display = "none";
 base64Tool.style.display = "none";
+urlTool.style.display = "none";
 
 menuJson.classList.remove("active");
 menuJsonCsv.classList.remove("active");
 menuCsvJson.classList.remove("active");
 menuBase64.classList.remove("active");
-
+menuUrl.classList.remove("active");
 
 if (tool === "json-csv") {
 
@@ -488,6 +535,11 @@ if (tool === "json-csv") {
 
     base64Tool.style.display = "block";
     menuBase64.classList.add("active");
+
+} else if (tool === "url") {
+
+    urlTool.style.display = "block";
+    menuUrl.classList.add("active");
 
 } else {
 
@@ -563,9 +615,9 @@ function minifyJSON() {
 
 function copyJSON() {
 
-    const input = document.getElementById("jsonInput");
-
-    navigator.clipboard.writeText(input.value);
+    navigator.clipboard.writeText(
+        document.getElementById("jsonInput").value
+    );
 
 }
 
@@ -769,7 +821,10 @@ function parseCSV(text) {
             !insideQuotes
         ) {
 
-            if (char === "\r" && text[i + 1] === "\n") {
+            if (
+                char === "\r" &&
+                text[i + 1] === "\n"
+            ) {
                 i++;
             }
 
@@ -813,7 +868,8 @@ function convertCSVtoJSON() {
 
     try {
 
-        const rows = parseCSV(input.value.trim());
+        const rows =
+            parseCSV(input.value.trim());
 
         if (rows.length < 2) {
 
@@ -828,7 +884,9 @@ function convertCSVtoJSON() {
         const result = rows
             .slice(1)
             .filter(row =>
-                row.some(value => value.trim() !== "")
+                row.some(value =>
+                    value.trim() !== ""
+                )
             )
             .map(row => {
 
@@ -1048,39 +1106,4 @@ function decodeBase64() {
 function copyBase64() {
 
     navigator.clipboard.writeText(
-        document.getElementById("base64Input").value
-    );
-
-}
-
-
-function clearBase64() {
-
-    document.getElementById("base64Input").value = "";
-
-    document.getElementById("base64Status").style.display = "none";
-
-}
-
-
-/* =========================
-   STATUS MESSAGE
-========================= */
-
-function showStatus(element, message, error) {
-
-    element.textContent = message;
-
-    element.classList.toggle(
-        "error",
-        error
-    );
-
-    element.style.display = "block";
-
-}
-
-</script>
-
-</body>
-</html>
+        document.getElementById("base64Input").
