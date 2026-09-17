@@ -261,7 +261,48 @@ font-size:16px
       <div id="jsonResult" style="margin-top:20px;"></div>
 
     </section>
+<!-- CSV TO JSON TOOL -->
 
+<section id="csvToJsonTool" style="display:none;">
+
+  <label for="csvInput">Paste CSV data</label>
+
+  <textarea
+    id="csvInput"
+    placeholder="name,age,city&#10;John,30,New York&#10;Sarah,25,Chicago"
+    style="width:100%; min-height:300px; margin-top:15px; padding:18px; border:2px solid #dbe2ea; border-radius:14px; font-family:monospace; font-size:16px; box-sizing:border-box;"
+  ></textarea>
+
+  <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:20px;">
+
+    <button onclick="convertCSVtoJSON()" class="btn-primary">
+      Convert to JSON
+    </button>
+
+    <button onclick="copyCSVJSON()" class="btn-primary">
+      Copy JSON
+    </button>
+
+    <button onclick="downloadJSON()" class="btn-primary">
+      Download JSON
+    </button>
+
+    <button onclick="clearCSVJSON()" class="btn-secondary">
+      Clear
+    </button>
+
+  </div>
+
+  <textarea
+    id="csvJsonOutput"
+    readonly
+    placeholder="JSON output will appear here..."
+    style="width:100%; min-height:300px; margin-top:20px; padding:18px; border:2px solid #dbe2ea; border-radius:14px; font-family:monospace; font-size:15px; box-sizing:border-box;"
+  ></textarea>
+
+  <div id="csvJsonResult" style="margin-top:15px;"></div>
+
+</section>
 
     <!-- JSON TO CSV TOOL -->
 
@@ -350,6 +391,21 @@ const selectedTool = params.get("tool") || "json";
 /* TOOL ROUTER */
 
 if (selectedTool === "json-csv") {
+  if (selectedTool === "csv-json") {
+
+  document.title = "CSV to JSON Converter — Free Online Tool | CalcWise";
+
+  document.getElementById("toolTitle").textContent =
+    "CSV to JSON Converter";
+
+  document.getElementById("toolDescription").textContent =
+    "Convert CSV data to JSON instantly. Your data is processed directly in your browser.";
+
+  document.getElementById("jsonTool").style.display = "none";
+  document.getElementById("csvTool").style.display = "none";
+  document.getElementById("csvToJsonTool").style.display = "block";
+
+  }
 
   document.title = "JSON to CSV Converter — Free Online Tool | CalcWise";
 
@@ -658,7 +714,196 @@ function escapeHTML(text) {
   return div.innerHTML;
 
 }
+/* CSV TO JSON */
 
+function convertCSVtoJSON() {
+
+  const input = document.getElementById("csvInput").value.trim();
+  const output = document.getElementById("csvJsonOutput");
+  const result = document.getElementById("csvJsonResult");
+
+  if (!input) {
+
+    result.innerHTML =
+      '<div style="padding:15px; background:#fff7ed; border-radius:10px;">Please enter CSV data first.</div>';
+
+    return;
+  }
+
+  try {
+
+    const rows = parseCSV(input);
+
+    if (rows.length < 2) {
+      throw new Error("CSV must contain a header row and at least one data row.");
+    }
+
+    const headers = rows[0];
+
+    const data = rows.slice(1).map(function(row) {
+
+      const object = {};
+
+      headers.forEach(function(header, index) {
+
+        object[header] =
+          row[index] !== undefined ? row[index] : "";
+
+      });
+
+      return object;
+
+    });
+
+    output.value = JSON.stringify(data, null, 2);
+
+    result.innerHTML =
+      '<div style="padding:15px; background:#f0fdf4; color:#166534; border-radius:10px;">✓ Converted successfully</div>';
+
+  } catch (error) {
+
+    result.innerHTML =
+      '<div style="padding:15px; background:#fef2f2; color:#991b1b; border-radius:10px;">✕ '
+      + escapeHTML(error.message)
+      + '</div>';
+
+  }
+
+}
+
+
+/* CSV PARSER */
+
+function parseCSV(text) {
+
+  const rows = [];
+  let row = [];
+  let value = "";
+  let insideQuotes = false;
+
+  for (let i = 0; i < text.length; i++) {
+
+    const char = text[i];
+    const next = text[i + 1];
+
+    if (char === '"' && insideQuotes && next === '"') {
+
+      value += '"';
+      i++;
+
+    } else if (char === '"') {
+
+      insideQuotes = !insideQuotes;
+
+    } else if (char === "," && !insideQuotes) {
+
+      row.push(value.trim());
+      value = "";
+
+    } else if ((char === "\n" || char === "\r") && !insideQuotes) {
+
+      if (char === "\r" && next === "\n") {
+        i++;
+      }
+
+      row.push(value.trim());
+
+      if (row.some(function(cell) {
+        return cell !== "";
+      })) {
+        rows.push(row);
+      }
+
+      row = [];
+      value = "";
+
+    } else {
+
+      value += char;
+
+    }
+
+  }
+
+  row.push(value.trim());
+
+  if (row.some(function(cell) {
+    return cell !== "";
+  })) {
+    rows.push(row);
+  }
+
+  return rows;
+
+}
+
+
+/* COPY JSON */
+
+function copyCSVJSON() {
+
+  const output = document.getElementById("csvJsonOutput");
+
+  if (!output.value) return;
+
+  navigator.clipboard.writeText(output.value)
+    .then(function() {
+
+      document.getElementById("csvJsonResult").innerHTML =
+        '<div style="padding:15px; background:#eff6ff; color:#1d4ed8; border-radius:10px;">✓ JSON copied to clipboard</div>';
+
+    });
+
+}
+
+
+/* DOWNLOAD JSON */
+
+function downloadJSON() {
+
+  const json = document.getElementById("csvJsonOutput").value;
+
+  if (!json) {
+
+    document.getElementById("csvJsonResult").innerHTML =
+      '<div style="padding:15px; background:#fff7ed; border-radius:10px;">Convert your CSV first.</div>';
+
+    return;
+
+  }
+
+  const blob = new Blob(
+    [json],
+    { type: "application/json;charset=utf-8;" }
+  );
+
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "calcwise-data.json";
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  document.body.removeChild(link);
+
+  URL.revokeObjectURL(url);
+
+}
+
+
+/* CLEAR CSV TO JSON */
+
+function clearCSVJSON() {
+
+  document.getElementById("csvInput").value = "";
+  document.getElementById("csvJsonOutput").value = "";
+  document.getElementById("csvJsonResult").innerHTML = "";
+
+  }
 </script>
 
 </body>
