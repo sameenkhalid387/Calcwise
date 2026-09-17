@@ -1,24 +1,27 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>JSON Formatter & Validator — Free Online Tool | CalcWise</title>
+  <title>Free Developer Tools | CalcWise</title>
 
-<meta name="description" content="Free online JSON formatter and validator. Format, validate, beautify and minify JSON directly in your browser with CalcWise.">
+  <meta name="description"
+        content="Free online developer tools including JSON Formatter, JSON to CSV Converter, Base64, URL Encoder, UUID Generator and more.">
 
-<meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow">
 
-<link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <header class="site-header">
-  <div class="wrap nav">
+  <div class="container nav-container">
 
-    <a class="brand" href="index.html">CalcWise</a>
+    <a href="index.html" class="logo">
+      CalcWise<span>.</span>
+    </a>
 
     <nav>
       <a href="index.html">Home</a>
@@ -32,89 +35,111 @@
 
 <main class="calculator-page">
 
-  <div class="wrap">
+  <div class="calc-shell">
 
-    <div class="calc-shell">
+    <div class="eyebrow">DEVELOPER TOOL</div>
 
-      <span class="eyebrow">DEVELOPER TOOL</span>
+    <h1 id="toolTitle">JSON Formatter & Validator</h1>
 
-      <h1>JSON Formatter & Validator</h1>
-
-      <p class="intro">
-        Format, validate and minify JSON instantly.
-        Your data is processed directly in your browser.
-      </p>
+    <p id="toolDescription">
+      Format, validate and minify JSON instantly. Your data is processed directly in your browser.
+    </p>
 
 
-      <div class="field">
+    <!-- JSON TOOL -->
 
-        <label for="jsonInput">
-          Paste your JSON
-        </label>
+    <section id="jsonTool">
 
-        <textarea
-          id="jsonInput"
-          rows="14"
-          placeholder='Example: {"name":"John","age":30,"city":"New York"}'
-          style="width:100%;padding:14px;border:1px solid #cbd5e1;border-radius:10px;font-size:15px;font-family:monospace;resize:vertical;"
-        ></textarea>
+      <label for="jsonInput">Paste your JSON</label>
 
-      </div>
+      <textarea
+        id="jsonInput"
+        placeholder='Example: {"name":"John","age":30}'
+        style="width:100%; min-height:300px; margin-top:15px; padding:18px; border:2px solid #dbe2ea; border-radius:14px; font-family:monospace; font-size:16px; box-sizing:border-box;"
+      ></textarea>
 
+      <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:20px;">
 
-      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;">
-
-        <button class="calc-button" style="width:auto;" onclick="formatJSON()">
+        <button onclick="formatJSON()" class="btn-primary">
           Format JSON
         </button>
 
-        <button class="calc-button" style="width:auto;" onclick="minifyJSON()">
+        <button onclick="minifyJSON()" class="btn-primary">
           Minify
         </button>
 
-        <button class="calc-button" style="width:auto;background:#16a34a;" onclick="copyJSON()">
+        <button onclick="copyJSON()" class="btn-primary">
           Copy
         </button>
 
-        <button class="calc-button" style="width:auto;background:#64748b;" onclick="clearJSON()">
+        <button onclick="clearJSON()" class="btn-secondary">
           Clear
         </button>
 
       </div>
 
+      <div id="jsonResult" style="margin-top:20px;"></div>
 
-      <div id="result" class="result" style="display:none;">
-        <strong id="status"></strong>
-        <p id="message"></p>
+    </section>
+
+
+    <!-- JSON TO CSV TOOL -->
+
+    <section id="csvTool" style="display:none;">
+
+      <label for="csvJsonInput">Paste JSON data</label>
+
+      <textarea
+        id="csvJsonInput"
+        placeholder='Example: [{"name":"John","age":30},{"name":"Sarah","age":25}]'
+        style="width:100%; min-height:300px; margin-top:15px; padding:18px; border:2px solid #dbe2ea; border-radius:14px; font-family:monospace; font-size:16px; box-sizing:border-box;"
+      ></textarea>
+
+      <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:20px;">
+
+        <button onclick="convertJSONtoCSV()" class="btn-primary">
+          Convert to CSV
+        </button>
+
+        <button onclick="copyCSV()" class="btn-primary">
+          Copy CSV
+        </button>
+
+        <button onclick="downloadCSV()" class="btn-primary">
+          Download CSV
+        </button>
+
+        <button onclick="clearCSV()" class="btn-secondary">
+          Clear
+        </button>
+
       </div>
 
+      <textarea
+        id="csvOutput"
+        readonly
+        placeholder="CSV output will appear here..."
+        style="width:100%; min-height:250px; margin-top:20px; padding:18px; border:2px solid #dbe2ea; border-radius:14px; font-family:monospace; font-size:15px; box-sizing:border-box;"
+      ></textarea>
 
-      <div class="notes">
+      <div id="csvResult" style="margin-top:15px;"></div>
 
-        <h2>What is a JSON Formatter?</h2>
+    </section>
 
-        <p>
-          JSON can become difficult to read when it is written
-          as one long line. A JSON formatter organizes the data
-          with indentation and spacing so it is easier to understand.
-        </p>
 
-        <h2>What does JSON validation do?</h2>
+    <div style="margin-top:40px; padding:25px; background:#f8fafc; border-radius:16px;">
 
-        <p>
-          The validator checks whether your text follows valid
-          JSON syntax. If there is an error, CalcWise will show
-          a message instead of silently producing an incorrect result.
-        </p>
+      <h2>Free Online Developer Tools</h2>
 
-        <h2>Is my JSON uploaded?</h2>
+      <p>
+        CalcWise provides simple browser-based tools for developers,
+        students, designers and everyday users.
+      </p>
 
-        <p>
-          No. This tool processes the JSON in your browser.
-          Your input is not sent to a CalcWise server.
-        </p>
-
-      </div>
+      <p>
+        Your data is processed directly in your browser whenever possible.
+        It is not sent to a CalcWise server by these tools.
+      </p>
 
     </div>
 
@@ -123,18 +148,12 @@
 </main>
 
 
-<footer>
+<footer class="site-footer">
 
-  <div class="wrap">
-
-    <strong>CalcWise</strong>
+  <div class="container">
 
     <p>
-      Free online calculators and developer tools.
-    </p>
-
-    <p>
-      © 2026 CalcWise · Free tools
+      © 2026 CalcWise. Free calculators and online tools.
     </p>
 
   </div>
@@ -144,71 +163,138 @@
 
 <script>
 
-function showResult(success, title, message) {
+const params = new URLSearchParams(window.location.search);
+const selectedTool = params.get("tool") || "json";
 
-  const result = document.getElementById("result");
-  const status = document.getElementById("status");
-  const text = document.getElementById("message");
 
-  result.style.display = "block";
+/* TOOL ROUTER */
 
-  status.textContent = title;
-  text.textContent = message;
+if (selectedTool === "json-csv") {
 
-  if (success) {
-    result.style.background = "#f0fdf4";
-    result.style.borderColor = "#bbf7d0";
-    status.style.color = "#16a34a";
-  } else {
-    result.style.background = "#fff7ed";
-    result.style.borderColor = "#fed7aa";
-    status.style.color = "#c2410c";
-  }
+  document.title = "JSON to CSV Converter — Free Online Tool | CalcWise";
+
+  document.getElementById("toolTitle").textContent =
+    "JSON to CSV Converter";
+
+  document.getElementById("toolDescription").textContent =
+    "Convert JSON data to CSV instantly. Your data is processed directly in your browser.";
+
+  document.getElementById("jsonTool").style.display = "none";
+  document.getElementById("csvTool").style.display = "block";
 
 }
 
+
+/* JSON FORMATTER */
 
 function formatJSON() {
 
   const input = document.getElementById("jsonInput").value.trim();
+  const result = document.getElementById("jsonResult");
 
   if (!input) {
-    showResult(false, "Nothing to format", "Please paste some JSON first.");
+    result.innerHTML =
+      '<div style="padding:15px; background:#fff7ed; border-radius:10px;">Please enter JSON first.</div>';
     return;
   }
 
   try {
 
-    const data = JSON.parse(input);
+    const parsed = JSON.parse(input);
 
     document.getElementById("jsonInput").value =
-      JSON.stringify(data, null, 2);
+      JSON.stringify(parsed, null, 2);
 
-    showResult(
-      true,
-      "Valid JSON ✓",
-      "Your JSON has been formatted successfully."
-    );
+    result.innerHTML =
+      '<div style="padding:15px; background:#f0fdf4; color:#166534; border-radius:10px;">✓ Valid JSON</div>';
 
   } catch (error) {
 
-    showResult(
-      false,
-      "Invalid JSON",
-      error.message
-    );
+    result.innerHTML =
+      '<div style="padding:15px; background:#fef2f2; color:#991b1b; border-radius:10px;">✕ Invalid JSON: '
+      + escapeHTML(error.message)
+      + '</div>';
 
   }
 
 }
 
+
+/* MINIFY JSON */
 
 function minifyJSON() {
 
   const input = document.getElementById("jsonInput").value.trim();
+  const result = document.getElementById("jsonResult");
 
   if (!input) {
-    showResult(false, "Nothing to minify", "Please paste some JSON first.");
+    result.innerHTML =
+      '<div style="padding:15px; background:#fff7ed; border-radius:10px;">Please enter JSON first.</div>';
+    return;
+  }
+
+  try {
+
+    const parsed = JSON.parse(input);
+
+    document.getElementById("jsonInput").value =
+      JSON.stringify(parsed);
+
+    result.innerHTML =
+      '<div style="padding:15px; background:#f0fdf4; color:#166534; border-radius:10px;">✓ JSON minified successfully</div>';
+
+  } catch (error) {
+
+    result.innerHTML =
+      '<div style="padding:15px; background:#fef2f2; color:#991b1b; border-radius:10px;">✕ Invalid JSON</div>';
+
+  }
+
+}
+
+
+/* COPY JSON */
+
+function copyJSON() {
+
+  const input = document.getElementById("jsonInput");
+
+  if (!input.value) return;
+
+  navigator.clipboard.writeText(input.value)
+    .then(function() {
+
+      document.getElementById("jsonResult").innerHTML =
+        '<div style="padding:15px; background:#eff6ff; color:#1d4ed8; border-radius:10px;">✓ Copied to clipboard</div>';
+
+    });
+
+}
+
+
+/* CLEAR JSON */
+
+function clearJSON() {
+
+  document.getElementById("jsonInput").value = "";
+  document.getElementById("jsonResult").innerHTML = "";
+
+}
+
+
+/* JSON TO CSV */
+
+function convertJSONtoCSV() {
+
+  const input = document.getElementById("csvJsonInput").value.trim();
+  const output = document.getElementById("csvOutput");
+  const result = document.getElementById("csvResult");
+
+  if (!input) {
+
+    result.innerHTML =
+      '<div style="padding:15px; background:#fff7ed; border-radius:10px;">Please enter JSON data first.</div>';
+
     return;
   }
 
@@ -216,68 +302,180 @@ function minifyJSON() {
 
     const data = JSON.parse(input);
 
-    document.getElementById("jsonInput").value =
-      JSON.stringify(data);
+    if (!Array.isArray(data)) {
 
-    showResult(
-      true,
-      "Valid JSON ✓",
-      "Your JSON has been minified successfully."
+      throw new Error(
+        "JSON to CSV conversion requires an array of objects."
+      );
+
+    }
+
+    if (data.length === 0) {
+
+      throw new Error("The JSON array is empty.");
+
+    }
+
+    const headers = [];
+
+    data.forEach(function(row) {
+
+      Object.keys(row).forEach(function(key) {
+
+        if (!headers.includes(key)) {
+          headers.push(key);
+        }
+
+      });
+
+    });
+
+
+    const csvRows = [];
+
+    csvRows.push(
+      headers.map(csvEscape).join(",")
     );
+
+
+    data.forEach(function(row) {
+
+      const values = headers.map(function(header) {
+
+        let value = row[header];
+
+        if (value === null || value === undefined) {
+          value = "";
+        }
+
+        if (typeof value === "object") {
+          value = JSON.stringify(value);
+        }
+
+        return csvEscape(value);
+
+      });
+
+      csvRows.push(values.join(","));
+
+    });
+
+
+    output.value = csvRows.join("\n");
+
+    result.innerHTML =
+      '<div style="padding:15px; background:#f0fdf4; color:#166534; border-radius:10px;">✓ Converted successfully</div>';
 
   } catch (error) {
 
-    showResult(
-      false,
-      "Invalid JSON",
-      error.message
-    );
+    result.innerHTML =
+      '<div style="padding:15px; background:#fef2f2; color:#991b1b; border-radius:10px;">✕ '
+      + escapeHTML(error.message)
+      + '</div>';
 
   }
 
 }
 
 
-async function copyJSON() {
+/* CSV ESCAPE */
 
-  const input = document.getElementById("jsonInput");
+function csvEscape(value) {
 
-  if (!input.value.trim()) {
-    showResult(false, "Nothing to copy", "Please enter some JSON first.");
+  value = String(value);
+
+  if (
+    value.includes(",") ||
+    value.includes('"') ||
+    value.includes("\n")
+  ) {
+
+    return '"' + value.replace(/"/g, '""') + '"';
+
+  }
+
+  return value;
+
+}
+
+
+/* COPY CSV */
+
+function copyCSV() {
+
+  const output = document.getElementById("csvOutput");
+
+  if (!output.value) return;
+
+  navigator.clipboard.writeText(output.value)
+    .then(function() {
+
+      document.getElementById("csvResult").innerHTML =
+        '<div style="padding:15px; background:#eff6ff; color:#1d4ed8; border-radius:10px;">✓ CSV copied to clipboard</div>';
+
+    });
+
+}
+
+
+/* DOWNLOAD CSV */
+
+function downloadCSV() {
+
+  const csv = document.getElementById("csvOutput").value;
+
+  if (!csv) {
+
+    document.getElementById("csvResult").innerHTML =
+      '<div style="padding:15px; background:#fff7ed; border-radius:10px;">Convert your JSON first.</div>';
+
     return;
-  }
-
-  try {
-
-    await navigator.clipboard.writeText(input.value);
-
-    showResult(
-      true,
-      "Copied ✓",
-      "The JSON has been copied to your clipboard."
-    );
-
-  } catch (error) {
-
-    input.select();
-    document.execCommand("copy");
-
-    showResult(
-      true,
-      "Copied ✓",
-      "The JSON has been copied."
-    );
 
   }
+
+  const blob = new Blob(
+    [csv],
+    { type: "text/csv;charset=utf-8;" }
+  );
+
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "calcwise-data.csv";
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  document.body.removeChild(link);
+
+  URL.revokeObjectURL(url);
 
 }
 
 
-function clearJSON() {
+/* CLEAR CSV */
 
-  document.getElementById("jsonInput").value = "";
+function clearCSV() {
 
-  document.getElementById("result").style.display = "none";
+  document.getElementById("csvJsonInput").value = "";
+  document.getElementById("csvOutput").value = "";
+  document.getElementById("csvResult").innerHTML = "";
+
+}
+
+
+/* SECURITY */
+
+function escapeHTML(text) {
+
+  const div = document.createElement("div");
+
+  div.textContent = text;
+
+  return div.innerHTML;
 
 }
 
