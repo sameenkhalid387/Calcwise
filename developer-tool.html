@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Free Developer Tools | CalcWise</title>
+<title>Developer Tools — Free Online Tools | CalcWise</title>
 
-  <meta name="description"
-        content="Free online developer tools including JSON Formatter, JSON to CSV Converter, Base64, URL Encoder, UUID Generator and more.">
+<meta name="description" content="Free online developer tools including JSON Formatter, JSON to CSV and CSV to JSON converters.">
 
-  <meta name="robots" content="index, follow">
+<meta name="robots" content="index, follow">
 
-  <link rel="stylesheet" href="./style.css?v=3">
-  <style>
+<link rel="stylesheet" href="./style.css?v=3">
+
+<style>
 *{box-sizing:border-box}
 
 body{
@@ -48,8 +48,7 @@ gap:20px
 font-size:25px;
 font-weight:800;
 color:#0f172a;
-text-decoration:none;
-letter-spacing:-.7px
+text-decoration:none
 }
 
 .logo span{
@@ -59,7 +58,7 @@ color:#2563eb
 nav{
 display:flex;
 align-items:center;
-gap:26px
+gap:24px
 }
 
 nav a{
@@ -74,7 +73,7 @@ color:#2563eb
 }
 
 .calculator-page{
-padding:55px 20px
+padding:45px 15px
 }
 
 .calc-shell{
@@ -100,7 +99,7 @@ margin-bottom:12px
 }
 
 h1{
-font-size:clamp(32px,6vw,50px);
+font-size:clamp(32px,6vw,48px);
 line-height:1.1;
 margin:0 0 15px;
 color:#0f172a
@@ -110,7 +109,7 @@ h2{
 color:#0f172a
 }
 
-#toolDescription{
+.description{
 font-size:18px;
 color:#64748b;
 margin-bottom:30px
@@ -124,11 +123,32 @@ margin-bottom:8px
 }
 
 textarea{
-font-family:monospace!important
+width:100%;
+min-height:280px;
+margin-top:10px;
+padding:18px;
+border:2px solid #dbe2ea;
+border-radius:14px;
+font-family:monospace;
+font-size:16px;
+resize:vertical;
+background:#fff;
+color:#172033
 }
 
-.btn-primary,
-.btn-secondary{
+textarea:focus{
+outline:none;
+border-color:#2563eb
+}
+
+.buttons{
+display:flex;
+flex-wrap:wrap;
+gap:12px;
+margin-top:20px
+}
+
+button{
 border:0;
 border-radius:12px;
 padding:14px 20px;
@@ -137,18 +157,49 @@ font-weight:700;
 cursor:pointer
 }
 
-.btn-primary{
+.primary{
 background:#2563eb;
 color:#fff
 }
 
-.btn-primary:hover{
+.primary:hover{
 background:#1d4ed8
 }
 
-.btn-secondary{
+.secondary{
 background:#64748b;
 color:#fff
+}
+
+.result{
+margin-top:18px
+}
+
+.message{
+padding:15px;
+border-radius:10px
+}
+
+.success{
+background:#f0fdf4;
+color:#166534
+}
+
+.error{
+background:#fef2f2;
+color:#991b1b
+}
+
+.info{
+background:#eff6ff;
+color:#1d4ed8
+}
+
+.info-box{
+margin-top:40px;
+padding:25px;
+background:#f8fafc;
+border-radius:16px
 }
 
 .site-footer{
@@ -158,6 +209,10 @@ text-align:center;
 border-top:1px solid #e2e8f0;
 background:#fff;
 color:#64748b
+}
+
+.tool-section{
+display:none
 }
 
 @media(max-width:700px){
@@ -170,7 +225,7 @@ padding:16px 0
 nav{
 flex-wrap:wrap;
 justify-content:center;
-gap:15px
+gap:14px
 }
 
 .calculator-page{
@@ -186,724 +241,712 @@ h1{
 font-size:34px
 }
 
-#toolDescription{
+.description{
 font-size:16px
 }
 
 }
-  </style>
+</style>
 </head>
 
 <body>
 
 <header class="site-header">
-  <div class="container nav-container">
+<div class="container nav-container">
 
-    <a href="index.html" class="logo">
-      CalcWise<span>.</span>
-    </a>
+<a href="index.html" class="logo">
+CalcWise<span>.</span>
+</a>
 
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="index.html#calculators">Calculators</a>
-      <a href="developer-tool.html?tool=json">Developer Tools</a>
-    </nav>
+<nav>
+<a href="index.html">Home</a>
+<a href="index.html#calculators">Calculators</a>
+<a href="developer-tool.html?tool=json">Developer Tools</a>
+<a href="index.html#about">About</a>
+</nav>
 
-  </div>
+</div>
 </header>
 
 
 <main class="calculator-page">
 
-  <div class="calc-shell">
+<div class="calc-shell">
 
-    <div class="eyebrow">DEVELOPER TOOL</div>
+<div class="eyebrow">DEVELOPER TOOL</div>
 
-    <h1 id="toolTitle">JSON Formatter & Validator</h1>
+<h1 id="toolTitle">JSON Formatter & Validator</h1>
 
-    <p id="toolDescription">
-      Format, validate and minify JSON instantly. Your data is processed directly in your browser.
-    </p>
+<p id="toolDescription" class="description">
+Format, validate and minify JSON instantly. Your data is processed directly in your browser.
+</p>
 
 
-    <!-- JSON TOOL -->
+<!-- JSON FORMATTER -->
 
-    <section id="jsonTool">
+<section id="jsonTool" class="tool-section">
 
-      <label for="jsonInput">Paste your JSON</label>
+<label for="jsonInput">Paste your JSON</label>
 
-      <textarea
-        id="jsonInput"
-        placeholder='Example: {"name":"John","age":30}'
-        style="width:100%; min-height:300px; margin-top:15px; padding:18px; border:2px solid #dbe2ea; border-radius:14px; font-family:monospace; font-size:16px; box-sizing:border-box;"
-      ></textarea>
+<textarea
+id="jsonInput"
+placeholder='Example: {"name":"John","age":30,"city":"New York"}'
+></textarea>
 
-      <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:20px;">
+<div class="buttons">
 
-        <button onclick="formatJSON()" class="btn-primary">
-          Format JSON
-        </button>
+<button class="primary" onclick="formatJSON()">
+Format JSON
+</button>
 
-        <button onclick="minifyJSON()" class="btn-primary">
-          Minify
-        </button>
+<button class="primary" onclick="minifyJSON()">
+Minify
+</button>
 
-        <button onclick="copyJSON()" class="btn-primary">
-          Copy
-        </button>
+<button class="primary" onclick="copyJSON()">
+Copy
+</button>
 
-        <button onclick="clearJSON()" class="btn-secondary">
-          Clear
-        </button>
+<button class="secondary" onclick="clearJSON()">
+Clear
+</button>
 
-      </div>
+</div>
 
-      <div id="jsonResult" style="margin-top:20px;"></div>
-
-    </section>
-<!-- CSV TO JSON TOOL -->
-
-<section id="csvToJsonTool" style="display:none;">
-
-  <label for="csvInput">Paste CSV data</label>
-
-  <textarea
-    id="csvInput"
-    placeholder="name,age,city&#10;John,30,New York&#10;Sarah,25,Chicago"
-    style="width:100%; min-height:300px; margin-top:15px; padding:18px; border:2px solid #dbe2ea; border-radius:14px; font-family:monospace; font-size:16px; box-sizing:border-box;"
-  ></textarea>
-
-  <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:20px;">
-
-    <button onclick="convertCSVtoJSON()" class="btn-primary">
-      Convert to JSON
-    </button>
-
-    <button onclick="copyCSVJSON()" class="btn-primary">
-      Copy JSON
-    </button>
-
-    <button onclick="downloadJSON()" class="btn-primary">
-      Download JSON
-    </button>
-
-    <button onclick="clearCSVJSON()" class="btn-secondary">
-      Clear
-    </button>
-
-  </div>
-
-  <textarea
-    id="csvJsonOutput"
-    readonly
-    placeholder="JSON output will appear here..."
-    style="width:100%; min-height:300px; margin-top:20px; padding:18px; border:2px solid #dbe2ea; border-radius:14px; font-family:monospace; font-size:15px; box-sizing:border-box;"
-  ></textarea>
-
-  <div id="csvJsonResult" style="margin-top:15px;"></div>
+<div id="jsonResult" class="result"></div>
 
 </section>
 
-    <!-- JSON TO CSV TOOL -->
 
-    <section id="csvTool" style="display:none;">
+<!-- JSON TO CSV -->
 
-      <label for="csvJsonInput">Paste JSON data</label>
+<section id="jsonCsvTool" class="tool-section">
 
-      <textarea
-        id="csvJsonInput"
-        placeholder='Example: [{"name":"John","age":30},{"name":"Sarah","age":25}]'
-        style="width:100%; min-height:300px; margin-top:15px; padding:18px; border:2px solid #dbe2ea; border-radius:14px; font-family:monospace; font-size:16px; box-sizing:border-box;"
-      ></textarea>
+<label for="jsonCsvInput">Paste JSON data</label>
 
-      <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:20px;">
+<textarea
+id="jsonCsvInput"
+placeholder='Example: [{"name":"John","age":30},{"name":"Sarah","age":25}]'
+></textarea>
 
-        <button onclick="convertJSONtoCSV()" class="btn-primary">
-          Convert to CSV
-        </button>
+<div class="buttons">
 
-        <button onclick="copyCSV()" class="btn-primary">
-          Copy CSV
-        </button>
+<button class="primary" onclick="convertJSONtoCSV()">
+Convert to CSV
+</button>
 
-        <button onclick="downloadCSV()" class="btn-primary">
-          Download CSV
-        </button>
+<button class="primary" onclick="copyCSV()">
+Copy CSV
+</button>
 
-        <button onclick="clearCSV()" class="btn-secondary">
-          Clear
-        </button>
+<button class="primary" onclick="downloadCSV()">
+Download CSV
+</button>
 
-      </div>
+<button class="secondary" onclick="clearJSONCSV()">
+Clear
+</button>
 
-      <textarea
-        id="csvOutput"
-        readonly
-        placeholder="CSV output will appear here..."
-        style="width:100%; min-height:250px; margin-top:20px; padding:18px; border:2px solid #dbe2ea; border-radius:14px; font-family:monospace; font-size:15px; box-sizing:border-box;"
-      ></textarea>
+</div>
 
-      <div id="csvResult" style="margin-top:15px;"></div>
+<textarea
+id="csvOutput"
+readonly
+placeholder="CSV output will appear here..."
+></textarea>
 
-    </section>
+<div id="jsonCsvResult" class="result"></div>
+
+</section>
 
 
-    <div style="margin-top:40px; padding:25px; background:#f8fafc; border-radius:16px;">
+<!-- CSV TO JSON -->
 
-      <h2>Free Online Developer Tools</h2>
+<section id="csvJsonTool" class="tool-section">
 
-      <p>
-        CalcWise provides simple browser-based tools for developers,
-        students, designers and everyday users.
-      </p>
+<label for="csvInput">Paste CSV data</label>
 
-      <p>
-        Your data is processed directly in your browser whenever possible.
-        It is not sent to a CalcWise server by these tools.
-      </p>
+<textarea
+id="csvInput"
+placeholder="name,age,city&#10;John,30,New York&#10;Sarah,25,Chicago"
+></textarea>
 
-    </div>
+<div class="buttons">
 
-  </div>
+<button class="primary" onclick="convertCSVtoJSON()">
+Convert to JSON
+</button>
+
+<button class="primary" onclick="copyCSVJSON()">
+Copy JSON
+</button>
+
+<button class="primary" onclick="downloadJSON()">
+Download JSON
+</button>
+
+<button class="secondary" onclick="clearCSVJSON()">
+Clear
+</button>
+
+</div>
+
+<textarea
+id="csvJsonOutput"
+readonly
+placeholder="JSON output will appear here..."
+></textarea>
+
+<div id="csvJsonResult" class="result"></div>
+
+</section>
+
+
+<div class="info-box">
+
+<h2>Free Online Developer Tools</h2>
+
+<p>
+CalcWise provides simple browser-based tools for developers,
+students, designers and everyday users.
+</p>
+
+<p>
+Your data is processed directly in your browser.
+It is not sent to a CalcWise server by these tools.
+</p>
+
+</div>
+
+</div>
 
 </main>
 
 
 <footer class="site-footer">
 
-  <div class="container">
+<div class="container">
 
-    <p>
-      © 2026 CalcWise. Free calculators and online tools.
-    </p>
+<p>
+© 2026 CalcWise. Free calculators and online tools.
+</p>
 
-  </div>
+</div>
 
 </footer>
 
 
 <script>
 
+/* SELECT TOOL FROM URL */
+
 const params = new URLSearchParams(window.location.search);
-const selectedTool = params.get("tool") || "json";
+const tool = params.get("tool") || "json";
+
+
+function showTool(id, title, description){
+
+document.getElementById("jsonTool").style.display = "none";
+document.getElementById("jsonCsvTool").style.display = "none";
+document.getElementById("csvJsonTool").style.display = "none";
+
+document.getElementById(id).style.display = "block";
+
+document.getElementById("toolTitle").textContent = title;
+
+document.getElementById("toolDescription").textContent = description;
+
+}
 
 
 /* TOOL ROUTER */
 
-if (selectedTool === "json-csv") {
-  if (selectedTool === "csv-json") {
+if(tool === "json-csv"){
 
-  document.title = "CSV to JSON Converter — Free Online Tool | CalcWise";
+showTool(
+"jsonCsvTool",
+"JSON to CSV Converter",
+"Convert JSON data to CSV instantly. Your data is processed directly in your browser."
+);
 
-  document.getElementById("toolTitle").textContent =
-    "CSV to JSON Converter";
+document.title = "JSON to CSV Converter — Free Online Tool | CalcWise";
 
-  document.getElementById("toolDescription").textContent =
-    "Convert CSV data to JSON instantly. Your data is processed directly in your browser.";
+}
 
-  document.getElementById("jsonTool").style.display = "none";
-  document.getElementById("csvTool").style.display = "none";
-  document.getElementById("csvToJsonTool").style.display = "block";
+else if(tool === "csv-json"){
 
-  }
+showTool(
+"csvJsonTool",
+"CSV to JSON Converter",
+"Convert CSV data to JSON instantly. Your data is processed directly in your browser."
+);
 
-  document.title = "JSON to CSV Converter — Free Online Tool | CalcWise";
+document.title = "CSV to JSON Converter — Free Online Tool | CalcWise";
 
-  document.getElementById("toolTitle").textContent =
-    "JSON to CSV Converter";
+}
 
-  document.getElementById("toolDescription").textContent =
-    "Convert JSON data to CSV instantly. Your data is processed directly in your browser.";
+else{
 
-  document.getElementById("jsonTool").style.display = "none";
-  document.getElementById("csvTool").style.display = "block";
+showTool(
+"jsonTool",
+"JSON Formatter & Validator",
+"Format, validate and minify JSON instantly. Your data is processed directly in your browser."
+);
 
 }
 
 
-/* JSON FORMATTER */
+/* JSON FORMAT */
 
-function formatJSON() {
+function formatJSON(){
 
-  const input = document.getElementById("jsonInput").value.trim();
-  const result = document.getElementById("jsonResult");
+const input = document.getElementById("jsonInput").value.trim();
+const result = document.getElementById("jsonResult");
 
-  if (!input) {
-    result.innerHTML =
-      '<div style="padding:15px; background:#fff7ed; border-radius:10px;">Please enter JSON first.</div>';
-    return;
-  }
+try{
 
-  try {
+if(!input) throw new Error("Please enter JSON first.");
 
-    const parsed = JSON.parse(input);
+const parsed = JSON.parse(input);
 
-    document.getElementById("jsonInput").value =
-      JSON.stringify(parsed, null, 2);
+document.getElementById("jsonInput").value =
+JSON.stringify(parsed,null,2);
 
-    result.innerHTML =
-      '<div style="padding:15px; background:#f0fdf4; color:#166534; border-radius:10px;">✓ Valid JSON</div>';
+result.innerHTML =
+'<div class="message success">✓ Valid JSON</div>';
 
-  } catch (error) {
+}
 
-    result.innerHTML =
-      '<div style="padding:15px; background:#fef2f2; color:#991b1b; border-radius:10px;">✕ Invalid JSON: '
-      + escapeHTML(error.message)
-      + '</div>';
+catch(error){
 
-  }
+result.innerHTML =
+'<div class="message error">✕ Invalid JSON: '
++ escapeHTML(error.message)
++ '</div>';
+
+}
 
 }
 
 
-/* MINIFY JSON */
+/* JSON MINIFY */
 
-function minifyJSON() {
+function minifyJSON(){
 
-  const input = document.getElementById("jsonInput").value.trim();
-  const result = document.getElementById("jsonResult");
+const input = document.getElementById("jsonInput").value.trim();
+const result = document.getElementById("jsonResult");
 
-  if (!input) {
-    result.innerHTML =
-      '<div style="padding:15px; background:#fff7ed; border-radius:10px;">Please enter JSON first.</div>';
-    return;
-  }
+try{
 
-  try {
+if(!input) throw new Error("Please enter JSON first.");
 
-    const parsed = JSON.parse(input);
+const parsed = JSON.parse(input);
 
-    document.getElementById("jsonInput").value =
-      JSON.stringify(parsed);
+document.getElementById("jsonInput").value =
+JSON.stringify(parsed);
 
-    result.innerHTML =
-      '<div style="padding:15px; background:#f0fdf4; color:#166534; border-radius:10px;">✓ JSON minified successfully</div>';
+result.innerHTML =
+'<div class="message success">✓ JSON minified successfully</div>';
 
-  } catch (error) {
+}
 
-    result.innerHTML =
-      '<div style="padding:15px; background:#fef2f2; color:#991b1b; border-radius:10px;">✕ Invalid JSON</div>';
+catch(error){
 
-  }
+result.innerHTML =
+'<div class="message error">✕ Invalid JSON</div>';
+
+}
 
 }
 
 
 /* COPY JSON */
 
-function copyJSON() {
+function copyJSON(){
 
-  const input = document.getElementById("jsonInput");
+const text =
+document.getElementById("jsonInput").value;
 
-  if (!input.value) return;
+if(!text) return;
 
-  navigator.clipboard.writeText(input.value)
-    .then(function() {
+navigator.clipboard.writeText(text);
 
-      document.getElementById("jsonResult").innerHTML =
-        '<div style="padding:15px; background:#eff6ff; color:#1d4ed8; border-radius:10px;">✓ Copied to clipboard</div>';
-
-    });
+document.getElementById("jsonResult").innerHTML =
+'<div class="message info">✓ Copied to clipboard</div>';
 
 }
 
 
 /* CLEAR JSON */
 
-function clearJSON() {
+function clearJSON(){
 
-  document.getElementById("jsonInput").value = "";
-  document.getElementById("jsonResult").innerHTML = "";
+document.getElementById("jsonInput").value = "";
+document.getElementById("jsonResult").innerHTML = "";
 
 }
 
 
 /* JSON TO CSV */
 
-function convertJSONtoCSV() {
+function convertJSONtoCSV(){
 
-  const input = document.getElementById("csvJsonInput").value.trim();
-  const output = document.getElementById("csvOutput");
-  const result = document.getElementById("csvResult");
+const input =
+document.getElementById("jsonCsvInput").value.trim();
 
-  if (!input) {
+const output =
+document.getElementById("csvOutput");
 
-    result.innerHTML =
-      '<div style="padding:15px; background:#fff7ed; border-radius:10px;">Please enter JSON data first.</div>';
+const result =
+document.getElementById("jsonCsvResult");
 
-    return;
-  }
+try{
 
-  try {
+const data = JSON.parse(input);
 
-    const data = JSON.parse(input);
+if(!Array.isArray(data))
+throw new Error("JSON must be an array of objects.");
 
-    if (!Array.isArray(data)) {
+if(data.length === 0)
+throw new Error("JSON array is empty.");
 
-      throw new Error(
-        "JSON to CSV conversion requires an array of objects."
-      );
+const headers = [];
 
-    }
+data.forEach(row=>{
 
-    if (data.length === 0) {
+Object.keys(row).forEach(key=>{
 
-      throw new Error("The JSON array is empty.");
+if(!headers.includes(key))
+headers.push(key);
 
-    }
+});
 
-    const headers = [];
-
-    data.forEach(function(row) {
-
-      Object.keys(row).forEach(function(key) {
-
-        if (!headers.includes(key)) {
-          headers.push(key);
-        }
-
-      });
-
-    });
+});
 
 
-    const csvRows = [];
+const rows = [];
 
-    csvRows.push(
-      headers.map(csvEscape).join(",")
-    );
+rows.push(headers.map(csvEscape).join(","));
 
+data.forEach(row=>{
 
-    data.forEach(function(row) {
+const values = headers.map(header=>{
 
-      const values = headers.map(function(header) {
+let value = row[header];
 
-        let value = row[header];
+if(value === null || value === undefined)
+value = "";
 
-        if (value === null || value === undefined) {
-          value = "";
-        }
+if(typeof value === "object")
+value = JSON.stringify(value);
 
-        if (typeof value === "object") {
-          value = JSON.stringify(value);
-        }
+return csvEscape(value);
 
-        return csvEscape(value);
+});
 
-      });
+rows.push(values.join(","));
 
-      csvRows.push(values.join(","));
+});
 
-    });
+output.value = rows.join("\n");
 
+result.innerHTML =
+'<div class="message success">✓ Converted successfully</div>';
 
-    output.value = csvRows.join("\n");
+}
 
-    result.innerHTML =
-      '<div style="padding:15px; background:#f0fdf4; color:#166534; border-radius:10px;">✓ Converted successfully</div>';
+catch(error){
 
-  } catch (error) {
+result.innerHTML =
+'<div class="message error">✕ '
++ escapeHTML(error.message)
++ '</div>';
 
-    result.innerHTML =
-      '<div style="padding:15px; background:#fef2f2; color:#991b1b; border-radius:10px;">✕ '
-      + escapeHTML(error.message)
-      + '</div>';
-
-  }
+}
 
 }
 
 
-/* CSV ESCAPE */
+function csvEscape(value){
 
-function csvEscape(value) {
+value = String(value);
 
-  value = String(value);
+if(
+value.includes(",") ||
+value.includes('"') ||
+value.includes("\n")
+){
 
-  if (
-    value.includes(",") ||
-    value.includes('"') ||
-    value.includes("\n")
-  ) {
+return '"' + value.replace(/"/g,'""') + '"';
 
-    return '"' + value.replace(/"/g, '""') + '"';
+}
 
-  }
-
-  return value;
+return value;
 
 }
 
 
 /* COPY CSV */
 
-function copyCSV() {
+function copyCSV(){
 
-  const output = document.getElementById("csvOutput");
+const text =
+document.getElementById("csvOutput").value;
 
-  if (!output.value) return;
+if(!text) return;
 
-  navigator.clipboard.writeText(output.value)
-    .then(function() {
+navigator.clipboard.writeText(text);
 
-      document.getElementById("csvResult").innerHTML =
-        '<div style="padding:15px; background:#eff6ff; color:#1d4ed8; border-radius:10px;">✓ CSV copied to clipboard</div>';
-
-    });
+document.getElementById("jsonCsvResult").innerHTML =
+'<div class="message info">✓ CSV copied to clipboard</div>';
 
 }
 
 
 /* DOWNLOAD CSV */
 
-function downloadCSV() {
+function downloadCSV(){
 
-  const csv = document.getElementById("csvOutput").value;
+const csv =
+document.getElementById("csvOutput").value;
 
-  if (!csv) {
+if(!csv) return;
 
-    document.getElementById("csvResult").innerHTML =
-      '<div style="padding:15px; background:#fff7ed; border-radius:10px;">Convert your JSON first.</div>';
+const blob =
+new Blob([csv],{type:"text/csv;charset=utf-8;"});
 
-    return;
+const url =
+URL.createObjectURL(blob);
 
-  }
+const link =
+document.createElement("a");
 
-  const blob = new Blob(
-    [csv],
-    { type: "text/csv;charset=utf-8;" }
-  );
+link.href = url;
+link.download = "calcwise-data.csv";
 
-  const url = URL.createObjectURL(blob);
+document.body.appendChild(link);
 
-  const link = document.createElement("a");
+link.click();
 
-  link.href = url;
-  link.download = "calcwise-data.csv";
+document.body.removeChild(link);
 
-  document.body.appendChild(link);
-
-  link.click();
-
-  document.body.removeChild(link);
-
-  URL.revokeObjectURL(url);
+URL.revokeObjectURL(url);
 
 }
 
 
-/* CLEAR CSV */
+/* CLEAR JSON TO CSV */
 
-function clearCSV() {
+function clearJSONCSV(){
 
-  document.getElementById("csvJsonInput").value = "";
-  document.getElementById("csvOutput").value = "";
-  document.getElementById("csvResult").innerHTML = "";
-
-}
-
-
-/* SECURITY */
-
-function escapeHTML(text) {
-
-  const div = document.createElement("div");
-
-  div.textContent = text;
-
-  return div.innerHTML;
+document.getElementById("jsonCsvInput").value = "";
+document.getElementById("csvOutput").value = "";
+document.getElementById("jsonCsvResult").innerHTML = "";
 
 }
+
+
 /* CSV TO JSON */
 
-function convertCSVtoJSON() {
+function convertCSVtoJSON(){
 
-  const input = document.getElementById("csvInput").value.trim();
-  const output = document.getElementById("csvJsonOutput");
-  const result = document.getElementById("csvJsonResult");
+const input =
+document.getElementById("csvInput").value.trim();
 
-  if (!input) {
+const output =
+document.getElementById("csvJsonOutput");
 
-    result.innerHTML =
-      '<div style="padding:15px; background:#fff7ed; border-radius:10px;">Please enter CSV data first.</div>';
+const result =
+document.getElementById("csvJsonResult");
 
-    return;
-  }
+try{
 
-  try {
+if(!input)
+throw new Error("Please enter CSV data first.");
 
-    const rows = parseCSV(input);
+const rows = parseCSV(input);
 
-    if (rows.length < 2) {
-      throw new Error("CSV must contain a header row and at least one data row.");
-    }
+if(rows.length < 2)
+throw new Error("CSV needs a header and at least one data row.");
 
-    const headers = rows[0];
+const headers = rows[0];
 
-    const data = rows.slice(1).map(function(row) {
+const data =
+rows.slice(1).map(row=>{
 
-      const object = {};
+const object = {};
 
-      headers.forEach(function(header, index) {
+headers.forEach((header,index)=>{
 
-        object[header] =
-          row[index] !== undefined ? row[index] : "";
+object[header] =
+row[index] !== undefined ? row[index] : "";
 
-      });
+});
 
-      return object;
+return object;
 
-    });
+});
 
-    output.value = JSON.stringify(data, null, 2);
+output.value =
+JSON.stringify(data,null,2);
 
-    result.innerHTML =
-      '<div style="padding:15px; background:#f0fdf4; color:#166534; border-radius:10px;">✓ Converted successfully</div>';
+result.innerHTML =
+'<div class="message success">✓ Converted successfully</div>';
 
-  } catch (error) {
+}
 
-    result.innerHTML =
-      '<div style="padding:15px; background:#fef2f2; color:#991b1b; border-radius:10px;">✕ '
-      + escapeHTML(error.message)
-      + '</div>';
+catch(error){
 
-  }
+result.innerHTML =
+'<div class="message error">✕ '
++ escapeHTML(error.message)
++ '</div>';
+
+}
 
 }
 
 
 /* CSV PARSER */
 
-function parseCSV(text) {
+function parseCSV(text){
 
-  const rows = [];
-  let row = [];
-  let value = "";
-  let insideQuotes = false;
+const rows = [];
 
-  for (let i = 0; i < text.length; i++) {
+let row = [];
+let value = "";
+let insideQuotes = false;
 
-    const char = text[i];
-    const next = text[i + 1];
+for(let i=0;i<text.length;i++){
 
-    if (char === '"' && insideQuotes && next === '"') {
+const char = text[i];
+const next = text[i+1];
 
-      value += '"';
-      i++;
+if(char === '"' && insideQuotes && next === '"'){
 
-    } else if (char === '"') {
+value += '"';
+i++;
 
-      insideQuotes = !insideQuotes;
+}
 
-    } else if (char === "," && !insideQuotes) {
+else if(char === '"'){
 
-      row.push(value.trim());
-      value = "";
+insideQuotes = !insideQuotes;
 
-    } else if ((char === "\n" || char === "\r") && !insideQuotes) {
+}
 
-      if (char === "\r" && next === "\n") {
-        i++;
-      }
+else if(char === "," && !insideQuotes){
 
-      row.push(value.trim());
+row.push(value.trim());
+value = "";
 
-      if (row.some(function(cell) {
-        return cell !== "";
-      })) {
-        rows.push(row);
-      }
+}
 
-      row = [];
-      value = "";
+else if((char === "\n" || char === "\r") && !insideQuotes){
 
-    } else {
+if(char === "\r" && next === "\n")
+i++;
 
-      value += char;
+row.push(value.trim());
 
-    }
+if(row.some(cell=>cell !== ""))
+rows.push(row);
 
-  }
+row = [];
+value = "";
 
-  row.push(value.trim());
+}
 
-  if (row.some(function(cell) {
-    return cell !== "";
-  })) {
-    rows.push(row);
-  }
+else{
 
-  return rows;
+value += char;
+
+}
+
+}
+
+row.push(value.trim());
+
+if(row.some(cell=>cell !== ""))
+rows.push(row);
+
+return rows;
 
 }
 
 
-/* COPY JSON */
+/* COPY CSV JSON */
 
-function copyCSVJSON() {
+function copyCSVJSON(){
 
-  const output = document.getElementById("csvJsonOutput");
+const text =
+document.getElementById("csvJsonOutput").value;
 
-  if (!output.value) return;
+if(!text) return;
 
-  navigator.clipboard.writeText(output.value)
-    .then(function() {
+navigator.clipboard.writeText(text);
 
-      document.getElementById("csvJsonResult").innerHTML =
-        '<div style="padding:15px; background:#eff6ff; color:#1d4ed8; border-radius:10px;">✓ JSON copied to clipboard</div>';
-
-    });
+document.getElementById("csvJsonResult").innerHTML =
+'<div class="message info">✓ JSON copied to clipboard</div>';
 
 }
 
 
 /* DOWNLOAD JSON */
 
-function downloadJSON() {
+function downloadJSON(){
 
-  const json = document.getElementById("csvJsonOutput").value;
+const json =
+document.getElementById("csvJsonOutput").value;
 
-  if (!json) {
+if(!json) return;
 
-    document.getElementById("csvJsonResult").innerHTML =
-      '<div style="padding:15px; background:#fff7ed; border-radius:10px;">Convert your CSV first.</div>';
+const blob =
+new Blob([json],{type:"application/json;charset=utf-8;"});
 
-    return;
+const url =
+URL.createObjectURL(blob);
 
-  }
+const link =
+document.createElement("a");
 
-  const blob = new Blob(
-    [json],
-    { type: "application/json;charset=utf-8;" }
-  );
+link.href = url;
+link.download = "calcwise-data.json";
 
-  const url = URL.createObjectURL(blob);
+document.body.appendChild(link);
 
-  const link = document.createElement("a");
+link.click();
 
-  link.href = url;
-  link.download = "calcwise-data.json";
+document.body.removeChild(link);
 
-  document.body.appendChild(link);
-
-  link.click();
-
-  document.body.removeChild(link);
-
-  URL.revokeObjectURL(url);
+URL.revokeObjectURL(url);
 
 }
 
 
 /* CLEAR CSV TO JSON */
 
-function clearCSVJSON() {
+function clearCSVJSON(){
 
-  document.getElementById("csvInput").value = "";
-  document.getElementById("csvJsonOutput").value = "";
-  document.getElementById("csvJsonResult").innerHTML = "";
+document.getElementById("csvInput").value = "";
+document.getElementById("csvJsonOutput").value = "";
+document.getElementById("csvJsonResult").innerHTML = "";
 
-  }
+}
+
+
+/* ESCAPE ERROR TEXT */
+
+function escapeHTML(text){
+
+const div = document.createElement("div");
+
+div.textContent = text;
+
+return div.innerHTML;
+
+}
+
 </script>
 
 </body>
