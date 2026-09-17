@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>JSON Formatter & Validator — Free Online Tool | CalcWise</title>
+
+<meta name="description" content="Free online JSON formatter and validator. Format, validate, beautify and minify JSON directly in your browser with CalcWise.">
+
+<meta name="robots" content="index, follow">
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="wrap nav">
+
+    <a class="brand" href="index.html">CalcWise</a>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html#calculators">Calculators</a>
+      <a href="index.html#developer-tools">Developer Tools</a>
+    </nav>
+
+  </div>
+</header>
+
+
+<main class="calculator-page">
+
+  <div class="wrap">
+
+    <div class="calc-shell">
+
+      <span class="eyebrow">DEVELOPER TOOL</span>
+
+      <h1>JSON Formatter & Validator</h1>
+
+      <p class="intro">
+        Format, validate and minify JSON instantly.
+        Your data is processed directly in your browser.
+      </p>
+
+
+      <div class="field">
+
+        <label for="jsonInput">
+          Paste your JSON
+        </label>
+
+        <textarea
+          id="jsonInput"
+          rows="14"
+          placeholder='Example: {"name":"John","age":30,"city":"New York"}'
+          style="width:100%;padding:14px;border:1px solid #cbd5e1;border-radius:10px;font-size:15px;font-family:monospace;resize:vertical;"
+        ></textarea>
+
+      </div>
+
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;">
+
+        <button class="calc-button" style="width:auto;" onclick="formatJSON()">
+          Format JSON
+        </button>
+
+        <button class="calc-button" style="width:auto;" onclick="minifyJSON()">
+          Minify
+        </button>
+
+        <button class="calc-button" style="width:auto;background:#16a34a;" onclick="copyJSON()">
+          Copy
+        </button>
+
+        <button class="calc-button" style="width:auto;background:#64748b;" onclick="clearJSON()">
+          Clear
+        </button>
+
+      </div>
+
+
+      <div id="result" class="result" style="display:none;">
+        <strong id="status"></strong>
+        <p id="message"></p>
+      </div>
+
+
+      <div class="notes">
+
+        <h2>What is a JSON Formatter?</h2>
+
+        <p>
+          JSON can become difficult to read when it is written
+          as one long line. A JSON formatter organizes the data
+          with indentation and spacing so it is easier to understand.
+        </p>
+
+        <h2>What does JSON validation do?</h2>
+
+        <p>
+          The validator checks whether your text follows valid
+          JSON syntax. If there is an error, CalcWise will show
+          a message instead of silently producing an incorrect result.
+        </p>
+
+        <h2>Is my JSON uploaded?</h2>
+
+        <p>
+          No. This tool processes the JSON in your browser.
+          Your input is not sent to a CalcWise server.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</main>
+
+
+<footer>
+
+  <div class="wrap">
+
+    <strong>CalcWise</strong>
+
+    <p>
+      Free online calculators and developer tools.
+    </p>
+
+    <p>
+      © 2026 CalcWise · Free tools
+    </p>
+
+  </div>
+
+</footer>
+
+
+<script>
+
+function showResult(success, title, message) {
+
+  const result = document.getElementById("result");
+  const status = document.getElementById("status");
+  const text = document.getElementById("message");
+
+  result.style.display = "block";
+
+  status.textContent = title;
+  text.textContent = message;
+
+  if (success) {
+    result.style.background = "#f0fdf4";
+    result.style.borderColor = "#bbf7d0";
+    status.style.color = "#16a34a";
+  } else {
+    result.style.background = "#fff7ed";
+    result.style.borderColor = "#fed7aa";
+    status.style.color = "#c2410c";
+  }
+
+}
+
+
+function formatJSON() {
+
+  const input = document.getElementById("jsonInput").value.trim();
+
+  if (!input) {
+    showResult(false, "Nothing to format", "Please paste some JSON first.");
+    return;
+  }
+
+  try {
+
+    const data = JSON.parse(input);
+
+    document.getElementById("jsonInput").value =
+      JSON.stringify(data, null, 2);
+
+    showResult(
+      true,
+      "Valid JSON ✓",
+      "Your JSON has been formatted successfully."
+    );
+
+  } catch (error) {
+
+    showResult(
+      false,
+      "Invalid JSON",
+      error.message
+    );
+
+  }
+
+}
+
+
+function minifyJSON() {
+
+  const input = document.getElementById("jsonInput").value.trim();
+
+  if (!input) {
+    showResult(false, "Nothing to minify", "Please paste some JSON first.");
+    return;
+  }
+
+  try {
+
+    const data = JSON.parse(input);
+
+    document.getElementById("jsonInput").value =
+      JSON.stringify(data);
+
+    showResult(
+      true,
+      "Valid JSON ✓",
+      "Your JSON has been minified successfully."
+    );
+
+  } catch (error) {
+
+    showResult(
+      false,
+      "Invalid JSON",
+      error.message
+    );
+
+  }
+
+}
+
+
+async function copyJSON() {
+
+  const input = document.getElementById("jsonInput");
+
+  if (!input.value.trim()) {
+    showResult(false, "Nothing to copy", "Please enter some JSON first.");
+    return;
+  }
+
+  try {
+
+    await navigator.clipboard.writeText(input.value);
+
+    showResult(
+      true,
+      "Copied ✓",
+      "The JSON has been copied to your clipboard."
+    );
+
+  } catch (error) {
+
+    input.select();
+    document.execCommand("copy");
+
+    showResult(
+      true,
+      "Copied ✓",
+      "The JSON has been copied."
+    );
+
+  }
+
+}
+
+
+function clearJSON() {
+
+  document.getElementById("jsonInput").value = "";
+
+  document.getElementById("result").style.display = "none";
+
+}
+
+</script>
+
+</body>
+</html>
